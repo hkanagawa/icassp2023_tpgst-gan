@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>demo.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="enhancement-of-text-predicting-style-token-with-generative-adversarial-network-for-expressive-speech-synthesis----omit-in-toc">Enhancement of text-predicting style token with generative adversarial network for expressive speech synthesis <!-- omit in toc --></h1>
+<h2 id="authors">Authors</h2>
+<p>Hiroki Kanagawa and Yusuke Ijima (NTT Corporation)</p>
+<h2 id="paper">Paper</h2>
+<p>Under peer-review at ICASSP 2023</p>
+<h2 id="note">Note</h2>
+<ul>
+<li>Each of the following sections corresponds to a paper's section.</li>
+<li>If you are having trouble listening to the audios, try refreshing the page.</li>
+</ul>
+<!-- ctrl+shift+pでCreate table of contents -> 目次作る -->
+<!-- ctrl+shift+pでhtml -> html出力 -->
+<!-- ctrl+shift+v プレビュー -->
+<h1 id="contents----omit-in-toc">Contents <!-- omit in toc --></h1>
+<ul>
+<li><a href="#42-style-predictors-comparison-on-seen-speakerstyle">4.2. Style predictors’ comparison on seen speaker/style</a>
+<ul>
+<li><a href="#sad-style">Sad style</a></li>
+<li><a href="#joyful-style">joyful style</a></li>
+<li><a href="#angry-style">Angry style</a></li>
+<li><a href="#hurried-style">Hurried style</a></li>
+</ul>
+</li>
+<li><a href="#43-overall-performance-evaluation-for-unseen-style">4.3. Overall performance evaluation for unseen style</a>
+<ul>
+<li><a href="#seen-speaker">Seen speaker</a></li>
+<li><a href="#unseen-speaker-for-style-extractor-and-predictor">Unseen speaker for style extractor and predictor</a></li>
+</ul>
+</li>
+</ul>
+<!-- 
+<span style="font-variant:small-caps;">GST</span>
+
+<span style="font-variant:small-caps;">TPGST TTSEmb</span>
+
+<span style="font-variant:small-caps;">TPGST Word</span>
+
+<span style="font-variant:small-caps;">TPGST TTSEmb+Word</span>
+
+<span style="font-variant:small-caps;">TPGST TTSEmb w/ GAN</span>
+
+<span style="font-variant:small-caps;">TPGST Word w/ GAN</span>
+<span style="font-variant:small-caps;">TPGST TTSEmb+Word w/ GAN</span>
+ -->
+<h1 id="42-style-predictors-comparison-on-seen-speakerstyle">4.2. Style predictors’ comparison on seen speaker/style</h1>
+<h2 id="sad-style">Sad style</h2>
+<table>
+<thead>
+<tr>
+<th>Speaker</th>
+<th>Reference<BR>(Ground truth)</th>
+<th><span style="font-variant:small-caps;">GST</span><BR>(Oracle)</th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb</span></th>
+<th>TPGST Word</span></th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb+Word</span></th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb <br>w/ GAN</span> (Proposed)</th>
+<th><span style="font-variant:small-caps;">TPGST Word<br>w/ GAN</span> (Proposed)</th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb+Word<br>w/ GAN</span> (Proposed)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FMH.awarendedoujoshite@kanashimi@247 <br>(<font size='0.5pt'>そんなに責任を感じないで。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/FMH.awarendedoujoshite@kanashimi@247.wav' id="audio_tag_FMH.awarendedoujoshite@kanashimi@247_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.awarendedoujoshite@kanashimi@247_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/FMH.awarendedoujoshite@kanashimi@247.wav' id="audio_tag_FMH.awarendedoujoshite@kanashimi@247_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.awarendedoujoshite@kanashimi@247_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/FMH.awarendedoujoshite@kanashimi@247.wav' id="audio_tag_FMH.awarendedoujoshite@kanashimi@247_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.awarendedoujoshite@kanashimi@247_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/FMH.awarendedoujoshite@kanashimi@247.wav' id="audio_tag_FMH.awarendedoujoshite@kanashimi@247_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.awarendedoujoshite@kanashimi@247_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/FMH.awarendedoujoshite@kanashimi@247.wav' id="audio_tag_FMH.awarendedoujoshite@kanashimi@247_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.awarendedoujoshite@kanashimi@247_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/FMH.awarendedoujoshite@kanashimi@247.wav' id="audio_tag_FMH.awarendedoujoshite@kanashimi@247_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.awarendedoujoshite@kanashimi@247_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/FMH.awarendedoujoshite@kanashimi@247.wav' id="audio_tag_FMH.awarendedoujoshite@kanashimi@247_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.awarendedoujoshite@kanashimi@247_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/FMH.awarendedoujoshite@kanashimi@247.wav' id="audio_tag_FMH.awarendedoujoshite@kanashimi@247_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.awarendedoujoshite@kanashimi@247_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>FNN.sad@20184Q_Emotion_sad@14 <br>(<font size='0.5pt'>お願い、一人にしないで。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/FNN.sad@20184Q_Emotion_sad@14.wav' id="audio_tag_FNN.sad@20184Q_Emotion_sad@14_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.sad@20184Q_Emotion_sad@14_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/FNN.sad@20184Q_Emotion_sad@14.wav' id="audio_tag_FNN.sad@20184Q_Emotion_sad@14_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.sad@20184Q_Emotion_sad@14_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/FNN.sad@20184Q_Emotion_sad@14.wav' id="audio_tag_FNN.sad@20184Q_Emotion_sad@14_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.sad@20184Q_Emotion_sad@14_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/FNN.sad@20184Q_Emotion_sad@14.wav' id="audio_tag_FNN.sad@20184Q_Emotion_sad@14_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.sad@20184Q_Emotion_sad@14_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/FNN.sad@20184Q_Emotion_sad@14.wav' id="audio_tag_FNN.sad@20184Q_Emotion_sad@14_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.sad@20184Q_Emotion_sad@14_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/FNN.sad@20184Q_Emotion_sad@14.wav' id="audio_tag_FNN.sad@20184Q_Emotion_sad@14_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.sad@20184Q_Emotion_sad@14_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/FNN.sad@20184Q_Emotion_sad@14.wav' id="audio_tag_FNN.sad@20184Q_Emotion_sad@14_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.sad@20184Q_Emotion_sad@14_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/FNN.sad@20184Q_Emotion_sad@14.wav' id="audio_tag_FNN.sad@20184Q_Emotion_sad@14_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.sad@20184Q_Emotion_sad@14_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>MMI.dtc.sad@20184Q_Emotion_sad@26 <br>(<font size='0.5pt'>飼っていた文鳥が逃げ出してしまったんだ。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/MMI.dtc.sad@20184Q_Emotion_sad@26.wav' id="audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/MMI.dtc.sad@20184Q_Emotion_sad@26.wav' id="audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/MMI.dtc.sad@20184Q_Emotion_sad@26.wav' id="audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/MMI.dtc.sad@20184Q_Emotion_sad@26.wav' id="audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/MMI.dtc.sad@20184Q_Emotion_sad@26.wav' id="audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/MMI.dtc.sad@20184Q_Emotion_sad@26.wav' id="audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/MMI.dtc.sad@20184Q_Emotion_sad@26.wav' id="audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/MMI.dtc.sad@20184Q_Emotion_sad@26.wav' id="audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.sad@20184Q_Emotion_sad@26_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>MTM.sad@20184Q_Emotion_sad@12 <br>(<font size='0.5pt'>こんなひどい点数とったの初めてなんだけど…。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/MTM.sad@20184Q_Emotion_sad@12.wav' id="audio_tag_MTM.sad@20184Q_Emotion_sad@12_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.sad@20184Q_Emotion_sad@12_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/MTM.sad@20184Q_Emotion_sad@12.wav' id="audio_tag_MTM.sad@20184Q_Emotion_sad@12_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.sad@20184Q_Emotion_sad@12_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/MTM.sad@20184Q_Emotion_sad@12.wav' id="audio_tag_MTM.sad@20184Q_Emotion_sad@12_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.sad@20184Q_Emotion_sad@12_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/MTM.sad@20184Q_Emotion_sad@12.wav' id="audio_tag_MTM.sad@20184Q_Emotion_sad@12_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.sad@20184Q_Emotion_sad@12_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/MTM.sad@20184Q_Emotion_sad@12.wav' id="audio_tag_MTM.sad@20184Q_Emotion_sad@12_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.sad@20184Q_Emotion_sad@12_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/MTM.sad@20184Q_Emotion_sad@12.wav' id="audio_tag_MTM.sad@20184Q_Emotion_sad@12_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.sad@20184Q_Emotion_sad@12_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/MTM.sad@20184Q_Emotion_sad@12.wav' id="audio_tag_MTM.sad@20184Q_Emotion_sad@12_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.sad@20184Q_Emotion_sad@12_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/MTM.sad@20184Q_Emotion_sad@12.wav' id="audio_tag_MTM.sad@20184Q_Emotion_sad@12_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.sad@20184Q_Emotion_sad@12_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+</tbody>
+</table>
+<h2 id="joyful-style">joyful style</h2>
+<table>
+<thead>
+<tr>
+<th>Speaker</th>
+<th>Reference<BR>(Ground truth)</th>
+<th><span style="font-variant:small-caps;">GST</span><BR>(Oracle)</th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb</span></th>
+<th>TPGST Word</span></th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb+Word</span></th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb <br>w/ GAN</span> (Proposed)</th>
+<th><span style="font-variant:small-caps;">TPGST Word<br>w/ GAN</span> (Proposed)</th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb+Word<br>w/ GAN</span> (Proposed)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FMH.kansyashite@yorokobi@255 <br>(<font size='0.5pt'>手作りスフレ、残さず食べてくれたんですね！</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/FMH.kansyashite@yorokobi@255.wav' id="audio_tag_FMH.kansyashite@yorokobi@255_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.kansyashite@yorokobi@255_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/FMH.kansyashite@yorokobi@255.wav' id="audio_tag_FMH.kansyashite@yorokobi@255_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.kansyashite@yorokobi@255_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/FMH.kansyashite@yorokobi@255.wav' id="audio_tag_FMH.kansyashite@yorokobi@255_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.kansyashite@yorokobi@255_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/FMH.kansyashite@yorokobi@255.wav' id="audio_tag_FMH.kansyashite@yorokobi@255_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.kansyashite@yorokobi@255_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/FMH.kansyashite@yorokobi@255.wav' id="audio_tag_FMH.kansyashite@yorokobi@255_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.kansyashite@yorokobi@255_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/FMH.kansyashite@yorokobi@255.wav' id="audio_tag_FMH.kansyashite@yorokobi@255_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.kansyashite@yorokobi@255_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/FMH.kansyashite@yorokobi@255.wav' id="audio_tag_FMH.kansyashite@yorokobi@255_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.kansyashite@yorokobi@255_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/FMH.kansyashite@yorokobi@255.wav' id="audio_tag_FMH.kansyashite@yorokobi@255_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.kansyashite@yorokobi@255_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>FNN.joyful@20184Q_Emotion_joyful@16 <br>(<font size='0.5pt'>先週の日曜にやっと自転車にひとりで乗れたんだ。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/FNN.joyful@20184Q_Emotion_joyful@16.wav' id="audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/FNN.joyful@20184Q_Emotion_joyful@16.wav' id="audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/FNN.joyful@20184Q_Emotion_joyful@16.wav' id="audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/FNN.joyful@20184Q_Emotion_joyful@16.wav' id="audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/FNN.joyful@20184Q_Emotion_joyful@16.wav' id="audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/FNN.joyful@20184Q_Emotion_joyful@16.wav' id="audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/FNN.joyful@20184Q_Emotion_joyful@16.wav' id="audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/FNN.joyful@20184Q_Emotion_joyful@16.wav' id="audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.joyful@20184Q_Emotion_joyful@16_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>MTM.joyful@20184Q_Emotion_joyful@18 <br>(<font size='0.5pt'>夏休みは家族でハワイに旅行に行くんです。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/MTM.joyful@20184Q_Emotion_joyful@18.wav' id="audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/MTM.joyful@20184Q_Emotion_joyful@18.wav' id="audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/MTM.joyful@20184Q_Emotion_joyful@18.wav' id="audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/MTM.joyful@20184Q_Emotion_joyful@18.wav' id="audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/MTM.joyful@20184Q_Emotion_joyful@18.wav' id="audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/MTM.joyful@20184Q_Emotion_joyful@18.wav' id="audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/MTM.joyful@20184Q_Emotion_joyful@18.wav' id="audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/MTM.joyful@20184Q_Emotion_joyful@18.wav' id="audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.joyful@20184Q_Emotion_joyful@18_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>MMI.dtc.joyful@20184Q_Emotion_joyful@15 <br>(<font size='0.5pt'>この年になって完走できるなんてまるで夢のようだよ。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/MMI.dtc.joyful@20184Q_Emotion_joyful@15.wav' id="audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/MMI.dtc.joyful@20184Q_Emotion_joyful@15.wav' id="audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/MMI.dtc.joyful@20184Q_Emotion_joyful@15.wav' id="audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/MMI.dtc.joyful@20184Q_Emotion_joyful@15.wav' id="audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/MMI.dtc.joyful@20184Q_Emotion_joyful@15.wav' id="audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/MMI.dtc.joyful@20184Q_Emotion_joyful@15.wav' id="audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/MMI.dtc.joyful@20184Q_Emotion_joyful@15.wav' id="audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/MMI.dtc.joyful@20184Q_Emotion_joyful@15.wav' id="audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MMI.dtc.joyful@20184Q_Emotion_joyful@15_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+</tbody>
+</table>
+<h2 id="angry-style">Angry style</h2>
+<table>
+<thead>
+<tr>
+<th>Speaker</th>
+<th>Reference<BR>(Ground truth)</th>
+<th><span style="font-variant:small-caps;">GST</span><BR>(Oracle)</th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb</span></th>
+<th>TPGST Word</span></th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb+Word</span></th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb <br>w/ GAN</span> (Proposed)</th>
+<th><span style="font-variant:small-caps;">TPGST Word<br>w/ GAN</span> (Proposed)</th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb+Word<br>w/ GAN</span> (Proposed)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FMH.ikatteharawotatetayousude@ikari@102 <br>(<font size='0.5pt'>同じこと何度も言わせないでよ。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/FMH.ikatteharawotatetayousude@ikari@102.wav' id="audio_tag_FMH.ikatteharawotatetayousude@ikari@102_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.ikatteharawotatetayousude@ikari@102_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/FMH.ikatteharawotatetayousude@ikari@102.wav' id="audio_tag_FMH.ikatteharawotatetayousude@ikari@102_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.ikatteharawotatetayousude@ikari@102_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/FMH.ikatteharawotatetayousude@ikari@102.wav' id="audio_tag_FMH.ikatteharawotatetayousude@ikari@102_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.ikatteharawotatetayousude@ikari@102_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/FMH.ikatteharawotatetayousude@ikari@102.wav' id="audio_tag_FMH.ikatteharawotatetayousude@ikari@102_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.ikatteharawotatetayousude@ikari@102_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/FMH.ikatteharawotatetayousude@ikari@102.wav' id="audio_tag_FMH.ikatteharawotatetayousude@ikari@102_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.ikatteharawotatetayousude@ikari@102_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/FMH.ikatteharawotatetayousude@ikari@102.wav' id="audio_tag_FMH.ikatteharawotatetayousude@ikari@102_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.ikatteharawotatetayousude@ikari@102_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/FMH.ikatteharawotatetayousude@ikari@102.wav' id="audio_tag_FMH.ikatteharawotatetayousude@ikari@102_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.ikatteharawotatetayousude@ikari@102_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/FMH.ikatteharawotatetayousude@ikari@102.wav' id="audio_tag_FMH.ikatteharawotatetayousude@ikari@102_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.ikatteharawotatetayousude@ikari@102_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>FNN.antipathy@20184Q_Emotion_antipathy@105 <br>(<font size='0.5pt'>少しくらい手伝ってくれたっていいじゃないか。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/FNN.antipathy@20184Q_Emotion_antipathy@105.wav' id="audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/FNN.antipathy@20184Q_Emotion_antipathy@105.wav' id="audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/FNN.antipathy@20184Q_Emotion_antipathy@105.wav' id="audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/FNN.antipathy@20184Q_Emotion_antipathy@105.wav' id="audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/FNN.antipathy@20184Q_Emotion_antipathy@105.wav' id="audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/FNN.antipathy@20184Q_Emotion_antipathy@105.wav' id="audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/FNN.antipathy@20184Q_Emotion_antipathy@105.wav' id="audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/FNN.antipathy@20184Q_Emotion_antipathy@105.wav' id="audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FNN.antipathy@20184Q_Emotion_antipathy@105_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>MDE.okotte@JEITASpeakingStyleM_15_okotte@16 <br>(<font size='0.5pt'>一体いつになったら注文品が届くんだ。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/MDE.okotte@JEITASpeakingStyleM_15_okotte@16.wav' id="audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/MDE.okotte@JEITASpeakingStyleM_15_okotte@16.wav' id="audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/MDE.okotte@JEITASpeakingStyleM_15_okotte@16.wav' id="audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/MDE.okotte@JEITASpeakingStyleM_15_okotte@16.wav' id="audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/MDE.okotte@JEITASpeakingStyleM_15_okotte@16.wav' id="audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/MDE.okotte@JEITASpeakingStyleM_15_okotte@16.wav' id="audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/MDE.okotte@JEITASpeakingStyleM_15_okotte@16.wav' id="audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/MDE.okotte@JEITASpeakingStyleM_15_okotte@16.wav' id="audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.okotte@JEITASpeakingStyleM_15_okotte@16_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>MTM.antipathy@20184Q_Emotion_antipathy@109 <br>(<font size='0.5pt'>もう時間がないんだから先に進もうよ。</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/MTM.antipathy@20184Q_Emotion_antipathy@109.wav' id="audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/MTM.antipathy@20184Q_Emotion_antipathy@109.wav' id="audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/MTM.antipathy@20184Q_Emotion_antipathy@109.wav' id="audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/MTM.antipathy@20184Q_Emotion_antipathy@109.wav' id="audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/MTM.antipathy@20184Q_Emotion_antipathy@109.wav' id="audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/MTM.antipathy@20184Q_Emotion_antipathy@109.wav' id="audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/MTM.antipathy@20184Q_Emotion_antipathy@109.wav' id="audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/MTM.antipathy@20184Q_Emotion_antipathy@109.wav' id="audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MTM.antipathy@20184Q_Emotion_antipathy@109_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+</tbody>
+</table>
+<h2 id="hurried-style">Hurried style</h2>
+<table>
+<thead>
+<tr>
+<th>Speaker</th>
+<th>Reference<BR>(Ground truth)</th>
+<th><span style="font-variant:small-caps;">GST</span><BR>(Oracle)</th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb</span></th>
+<th>TPGST Word</span></th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb+Word</span></th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb <br>w/ GAN</span> (Proposed)</th>
+<th><span style="font-variant:small-caps;">TPGST Word<br>w/ GAN</span> (Proposed)</th>
+<th><span style="font-variant:small-caps;">TPGST TTSEmb+Word<br>w/ GAN</span> (Proposed)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FMH.asettekigaseidayousude@takaburi@101 <br>(<font size='0.5pt'>どうしよう、おばあちゃん倒れちゃったって！</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/FMH.asettekigaseidayousude@takaburi@101.wav' id="audio_tag_FMH.asettekigaseidayousude@takaburi@101_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.asettekigaseidayousude@takaburi@101_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/FMH.asettekigaseidayousude@takaburi@101.wav' id="audio_tag_FMH.asettekigaseidayousude@takaburi@101_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.asettekigaseidayousude@takaburi@101_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/FMH.asettekigaseidayousude@takaburi@101.wav' id="audio_tag_FMH.asettekigaseidayousude@takaburi@101_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.asettekigaseidayousude@takaburi@101_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/FMH.asettekigaseidayousude@takaburi@101.wav' id="audio_tag_FMH.asettekigaseidayousude@takaburi@101_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.asettekigaseidayousude@takaburi@101_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/FMH.asettekigaseidayousude@takaburi@101.wav' id="audio_tag_FMH.asettekigaseidayousude@takaburi@101_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.asettekigaseidayousude@takaburi@101_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/FMH.asettekigaseidayousude@takaburi@101.wav' id="audio_tag_FMH.asettekigaseidayousude@takaburi@101_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.asettekigaseidayousude@takaburi@101_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/FMH.asettekigaseidayousude@takaburi@101.wav' id="audio_tag_FMH.asettekigaseidayousude@takaburi@101_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.asettekigaseidayousude@takaburi@101_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/FMH.asettekigaseidayousude@takaburi@101.wav' id="audio_tag_FMH.asettekigaseidayousude@takaburi@101_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_FMH.asettekigaseidayousude@takaburi@101_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+<tr>
+<td>MDE.asette@JEITASpeakingStyleM_27_asette@2 <br>(<font size='0.5pt'>早くしないと、待ち合わせに間に合わない！</font>)</td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/reference/MDE.asette@JEITASpeakingStyleM_27_asette@2.wav' id="audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_reference"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_reference').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/gst/MDE.asette@JEITASpeakingStyleM_27_asette@2.wav' id="audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_gst"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_gst').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb/MDE.asette@JEITASpeakingStyleM_27_asette@2.wav' id="audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_ttsemb"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_ttsemb').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word/MDE.asette@JEITASpeakingStyleM_27_asette@2.wav' id="audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_word/MDE.asette@JEITASpeakingStyleM_27_asette@2.wav' id="audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_ttsemb_word"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_ttsemb_word').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb_gan/MDE.asette@JEITASpeakingStyleM_27_asette@2.wav' id="audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_ttsemb_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_ttsemb_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/word_gan/MDE.asette@JEITASpeakingStyleM_27_asette@2.wav' id="audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_word_gan').play()">▶</span></div></td>
+<td><audio src='demo/seen-style_seen-spk@stylerepro/ttsemb-word_gan/MDE.asette@JEITASpeakingStyleM_27_asette@2.wav' id="audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_ttsemb-word_gan"></audio><div class="audio_buttons" role="button"><span onclick="document.getElementById('audio_tag_MDE.asette@JEITASpeakingStyleM_27_asette@2_ttsemb-word_gan').play()">▶</span></div></td>
+</tr>
+</tbody>
+</table>
+<h1 id="43-overall-performance-evaluation-for-unseen-style">4.3. Overall performance evaluation for unseen style</h1>
+<h2 id="seen-speaker">Seen speaker</h2>
+<h2 id="unseen-speaker-for-style-extractor-and-predictor">Unseen speaker for style extractor and predictor</h2>
+<p>Copyright © 2023 NTT Corp. All rights reserved.</p>
+
+</body>
+</html>
