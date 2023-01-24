@@ -44,7 +44,7 @@ These audio samples were used in the style reproduction evaluation on **seen spe
 Four styles were used, with each speaker expressing a sad, joyful, angry and a hurried style.
 The synthesized speech's style reproduction was compared to that of the reference natural styled-speech.<br>
 
-Samples labeled <span style="font-variant:small-caps;">GST</span> condition TTS with style embedding obtained from reference speech. The audio samples labeled <span style="font-variant:small-caps;">TPGST</span> were synthesized by using style embedding predicted from text instead of reference speech. **The methods with <span style="font-variant:small-caps;">w/ GAN</span> suffix are our proposed methods, and they enhanced the style embedding prediction with GAN.**
+Audio samples, which are titled <span style="font-variant:small-caps;">GST</span>, conditioned TTS with style embedding obtained from reference speech. The other samples denoted <span style="font-variant:small-caps;">TPGST</span> were synthesized by using style embedding predicted from text instead of reference speech. **The methods with <span style="font-variant:small-caps;">w/ GAN</span> suffix are our proposed methods, and they enhanced the style embedding prediction with GAN.**
 
 
 ## Sad style 
